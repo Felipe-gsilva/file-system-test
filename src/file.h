@@ -18,10 +18,12 @@
 
 #define UINT_MAX 800
 
-typedef struct header_record {
-  i8 rrn;
-  i8 default_size;
+#define EOHR "/--"
 
+typedef struct header_record {
+  i8 record_size;
+  i8 id_size;
+  i8 name_size;
 } header_record;
 
 #endif
