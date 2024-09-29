@@ -1,29 +1,65 @@
-#ifdef _header
-#define _header
-#else
+#ifndef FILE_H
+#define FILE_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "defines.h"
+#define EOHR "---END OF HEADER---"
 
-#define u8 uint8_t
-#define u16 uint16_t
-#define u32 uint32_t
-#define u64 uint64_t
+// Custom types
+typedef int8_t i8;
 
-#define i8 int8_t
-#define i16 int16_t
-#define i32 int32_t
-#define i64 int64_t
-
-#define UINT_MAX 800
-
-#define EOHR "/--"
-
-typedef struct header_record {
-  i8 record_size;
-  i8 id_size;
-  i8 name_size;
+// Define a structure for header records
+typedef struct {
+    i8 record_size;
+    i8 id_size;
+    i8 name_size;
 } header_record;
 
-#endif
+// Function declarations
+
+/**
+ * Reads a header record from the given file pointer.
+ * @param fp File pointer to the file to read from.
+ * @param hp Pointer to a header_record structure to populate.
+ * @return true if the header was successfully read, false otherwise.
+ */
+bool read_header(FILE *fp, header_record *hp);
+
+/**
+ * Writes the header record to the given file pointer.
+ * @param fp File pointer to write to.
+ * @param hp Pointer to the header_record structure to write.
+ */
+void write_header(FILE *fp, header_record *hp);
+
+/**
+ * Populates a header_record structure with default values.
+ * @param hp Pointer to the header_record structure to populate.
+ */
+void populate_header(header_record *hp);
+
+/**
+ * Writes data to the file (function implementation not provided).
+ */
+void write_data();
+
+/**
+ * Loads a file and reads its header.
+ * @param fp File pointer (will be set by fopen).
+ * @param fp_name Name of the file to open and load.
+ */
+void load_file(FILE *fp, char *fp_name);
+
+/**
+ * Creates a data file with a header and returns the file pointer.
+ * @param hn Header name (not used in this implementation).
+ * @param address File path to create the new file.
+ * @return File pointer to the created file.
+ */
+FILE *create_data_file(char *hn, char *address);
+
+/**
+ * Function to insert data into the file (function implementation not provided).
+ */
+void insert_data();
+
+#endif // FILE_H
