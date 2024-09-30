@@ -2,7 +2,7 @@
 
 bool read_header(FILE *fp, header_record *hp) {
     char hp_keyword[100]; 
-    i8 hp_value;
+    u8 hp_value;
     if (fp != NULL){
         fscanf(fp, "%s", hp_keyword);
         fscanf(fp, "%s %hhd", hp_keyword, &hp_value);
@@ -23,7 +23,8 @@ void write_header(FILE *fp, header_record *hp){
         printf("!\n");
         exit(-1);
     }
-    fprintf(fp, "---\nrec_sz %hhd\nid_sz %hhd\nnm_sz %hhd\n%s", hp->record_size, hp->id_size, hp->name_size, EOHR);
+    fprintf(fp, "%s\nrecord_size %hhd\nid_size %hhd\nname_size %hhd\n%s", SOHR, hp->record_size, hp->id_size, hp->name_size, EOHR);
+
 }
 
 void populate_header(header_record *hp) {
@@ -35,14 +36,14 @@ void populate_header(header_record *hp) {
     }
 
     hp->record_size = 8 * (int)sizeof(header_record); 
-    hp->id_size = 8 * (int)sizeof(i8); 
+    hp->id_size = 8 * (int)sizeof(u8); 
     hp->name_size = (int)sizeof(char) * 50; 
 }
 
 void write_data(){}
 
 void load_file(FILE *fp, char *fp_name) {
-    printf("file: %s\n", fp_name);
+    printf("@Loading file: %s\n", fp_name);
 
     fp = fopen(fp_name, "r");
 
@@ -58,7 +59,7 @@ void load_file(FILE *fp, char *fp_name) {
     fseek(fp, 0, SEEK_SET);
 }
 
-FILE *create_data_file(char *hn, char *address) {
+FILE *create_data_file(char *address) {
     FILE *fp;
     header_record *hp;
 

@@ -2,16 +2,15 @@
 #define FILE_H
 
 #include "defines.h"
-#define EOHR "---END OF HEADER---"
+#define SOHR "-------HEADER-------"
+#define EOHR "--------------------"
 
-// Custom types
-typedef int8_t i8;
 
 // Define a structure for header records
 typedef struct {
-    i8 record_size;
-    i8 id_size;
-    i8 name_size;
+    u8 record_size;
+    u8 id_size;
+    u8 name_size;
 } header_record;
 
 // Function declarations
@@ -51,11 +50,10 @@ void load_file(FILE *fp, char *fp_name);
 
 /**
  * Creates a data file with a header and returns the file pointer.
- * @param hn Header name (not used in this implementation).
  * @param address File path to create the new file.
  * @return File pointer to the created file.
  */
-FILE *create_data_file(char *hn, char *address);
+FILE *create_data_file(char *address);
 
 /**
  * Function to insert data into the file (function implementation not provided).
