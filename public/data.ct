@@ -1,5 +1,5 @@
 -------HEADER-------
-record_size 24
-id_size 8
+record_size 48
+id_size 16
 name_size 50
 --------------------

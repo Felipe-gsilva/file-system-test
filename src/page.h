@@ -1,26 +1,30 @@
 #ifndef _PAGE_H
 #define _PAGE_H
 
+#include "io-buf.h"
+
 #define ORDER 4
-#include "file.h"
 
-typedef struct key {
-    u8 key;
-    char *file_name;
-    u8 data_file_key;
-} key;
+typedef struct key key;
 
-typedef struct page {
-    u8 RRN;
-    struct page *children; 
-    key *keys;            
-} page;
+typedef struct page page;
 
-/**
- * Creates a new tree with the specified key.
- * @param key The initial key for the new tree.
- * @return Pointer to the newly created tree root page.
- */
-page *create_new_tree(u8 key);
+struct key {
+    u16 key;
+    char file_name[128];
+    u16 data_file_key;
+};
 
-#endif // _PAGE_H
+struct page{
+    u16 rrn;
+    key keys[ORDER-1];            
+    u16 children[ORDER];
+};
+
+page *alloc_page();
+
+page *new_page(u16 rrn, key keys[], u16 children[]);
+
+void clear_page(page *page);
+
+#endif 
