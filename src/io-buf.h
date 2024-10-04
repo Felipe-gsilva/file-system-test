@@ -16,7 +16,7 @@ struct header_record {
 };
 
 struct io_buf {
-    char *name;
+    char name[4096];
     FILE *fp;
     header_record *hr;
 };
@@ -24,7 +24,7 @@ struct io_buf {
 
 io_buf *alloc_io_buf();
 
-void load_file(io_buf *io);
+void load_file(io_buf *io, char *file_name);
 
 FILE *create_data_file(char *address);
 

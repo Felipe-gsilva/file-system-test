@@ -15,6 +15,8 @@ void cli();
 
 app *alloc_app();
 
+void clear_app(app *app);
+
 int main(int argc, char **argv);
 
 #endif
